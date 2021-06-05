@@ -40,6 +40,10 @@ def parse_args():
     parser.add_argument('--test', type=str, default=os.environ.get('SM_CHANNEL_TEST'))
     # Model output directory
     parser.add_argument('--model_dir', type=str, default=os.environ.get('SM_MODEL_DIR'))
+    # Checkpoint info
+    parser.add_argument('--checkpoint_enabled', type=str, default='True')
+    parser.add_argument('--checkpoint_load_previous', type=str, default='True')
+    parser.add_argument('--checkpoint_local_dir', type=str, default='/opt/ml/checkpoints/')
     logger.info('Completed parsing command-line arguments.')
     return parser.parse_known_args()
 
@@ -91,6 +95,19 @@ def create_model():
     return model
     
 
+## Load the weights from the latest checkpoint
+def load_weights_from_latest_checkpoint(model):
+    file_list = os.listdir(args.checkpoint_local_dir)
+    logger.info('Checking for checkpoint files...')
+    if len(file_list) > 0:
+        logger.info('Checkpoint files found.')
+        logger.info('Loading the weights from the latest model checkpoint...')
+        model.load_weights(tf.train.latest_checkpoint(args.checkpoint_local_dir))
+        logger.info('Completed loading weights from the latest model checkpoint.')
+    else:
+         logger.info('Checkpoint files not found.')
+                
+                               
 ## Compile the model by setting the loss and optimizer functions
 def compile_model(model, learning_rate, decay):
     logger.info('Compiling the model...')
@@ -105,11 +122,17 @@ def compile_model(model, learning_rate, decay):
 ## Train the model
 def train_model(model, model_dir, x_train, y_train, batch_size, epochs):
     logger.info('Training the model...')
-    checkpoint = ModelCheckpoint(model_dir, monitor='val_accuracy',
-                                 save_best_only=True, save_weights_only=False,
-                                 save_frequency=1, mode='max',
-                                 verbose=TRAIN_VERBOSE_LEVEL)
-    callbacks = [checkpoint]
+    if args.checkpoint_enabled.lower() == 'true':
+        logger.info('Initializing to perform checkpointing...')
+        checkpoint = ModelCheckpoint(filepath=os.path.join(args.checkpoint_local_dir, 'tf2-checkpoint-{epoch}'),
+                                     save_best_only=False, save_weights_only=True,
+                                     save_frequency='epoch',
+                                     verbose=TRAIN_VERBOSE_LEVEL)
+        callbacks = [checkpoint]
+        logger.info('Completed initializing to perform checkpointing.')
+    else:
+        logger.info('Checkpointing will not be performed.')
+        callbacks = None
     training_start_time = time.time()
     history = model.fit(x_train, y_train, batch_size=batch_size,
                         epochs=epochs, shuffle=True,
@@ -175,6 +198,8 @@ if __name__ == "__main__":
     x_test, y_test = load_and_preprocess_data('test', args.test, 'x_test.npy', 'y_test.npy')
     # Create, compile, train and evaluate the model
     model = create_model()
+    if args.checkpoint_load_previous.lower() == 'true':
+        load_weights_from_latest_checkpoint(model)
     compile_model(model, args.learning_rate, args.decay)
     train_model(model, args.model_dir, x_train, y_train, args.batch_size, args.epochs)
     evaluate_model(model, x_test, y_test)
