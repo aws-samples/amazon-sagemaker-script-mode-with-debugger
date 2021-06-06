@@ -16,7 +16,7 @@ This repository contains
 
 * [A Jupyter Notebook](https://github.com/aws-samples/amazon-sagemaker-script-mode-with-debugger/blob/main/notebooks/tf2_fashion_mnist_debugger.ipynb) to get started
 
-* [A training script in Python](https://github.com/aws-samples/amazon-sagemaker-script-mode-with-debugger/blob/main/notebooks/scripts/train_tf2_fashion_mnist.py) that is passed to the training job
+* [A training script in Python](https://github.com/aws-samples/amazon-sagemaker-script-mode-with-debugger/blob/main/notebooks/scripts/train_tf2_fashion_mnist_debugger.py) that is passed to the training job
 
 ### Example 2: Using custom training loop
 
@@ -28,7 +28,7 @@ This repository contains
 
 * [A Jupyter Notebook](https://github.com/aws-samples/amazon-sagemaker-script-mode-with-debugger/blob/main/notebooks/tf2_fashion_mnist_custom_debugger.ipynb) to get started
 
-* [A training script in Python](https://github.com/aws-samples/amazon-sagemaker-script-mode-with-debugger/blob/main/notebooks/scripts/train_tf2_fashion_mnist_custom.py) that is passed to the training job
+* [A training script in Python](https://github.com/aws-samples/amazon-sagemaker-script-mode-with-debugger/blob/main/notebooks/scripts/train_tf2_fashion_mnist_custom_debugger.py) that is passed to the training job
 
 ## Security
 
