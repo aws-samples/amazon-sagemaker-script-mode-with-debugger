@@ -1,6 +1,6 @@
 ## Train using Amazon SageMaker in script mode and debug using Amazon SageMaker Debugger
 
-This repository contains two examples for performing training on Amazon SageMaker using SageMaker's script mode and debugging using Amazon SageMaker Debugger.
+This repository contains two examples for performing training on Amazon SageMaker using SageMaker's script mode and debugging using Amazon SageMaker Debugger.  Both examples contain training scripts for both zero-script-change and with-script-change scenarios.
 
 ### Overview
 
@@ -16,7 +16,9 @@ This repository contains
 
 * [A Jupyter Notebook](https://github.com/aws-samples/amazon-sagemaker-script-mode-with-debugger/blob/main/notebooks/tf2_fashion_mnist_debugger.ipynb) to get started
 
-* [A training script in Python](https://github.com/aws-samples/amazon-sagemaker-script-mode-with-debugger/blob/main/notebooks/scripts/train_tf2_fashion_mnist_debugger.py) that is passed to the training job
+* [A training script in Python for zero-script-change scenario](https://github.com/aws-samples/amazon-sagemaker-script-mode-with-debugger/blob/main/notebooks/scripts/train_tf2_fashion_mnist.py) that is passed to the training job
+
+* [A training script in Python for with-script-change scenario](https://github.com/aws-samples/amazon-sagemaker-script-mode-with-debugger/blob/main/notebooks/scripts/train_tf2_fashion_mnist_debugger.py) that is passed to the training job
 
 ### Example 2: Using custom training loop
 
@@ -28,7 +30,9 @@ This repository contains
 
 * [A Jupyter Notebook](https://github.com/aws-samples/amazon-sagemaker-script-mode-with-debugger/blob/main/notebooks/tf2_fashion_mnist_custom_debugger.ipynb) to get started
 
-* [A training script in Python](https://github.com/aws-samples/amazon-sagemaker-script-mode-with-debugger/blob/main/notebooks/scripts/train_tf2_fashion_mnist_custom_debugger.py) that is passed to the training job
+* [A training script in Python for zero-script-change scenario](https://github.com/aws-samples/amazon-sagemaker-script-mode-with-debugger/blob/main/notebooks/scripts/train_tf2_fashion_mnist_custom.py) that is passed to the training job
+
+* [A training script in Python for with-script-change scenario](https://github.com/aws-samples/amazon-sagemaker-script-mode-with-debugger/blob/main/notebooks/scripts/train_tf2_fashion_mnist_custom_debugger.py) that is passed to the training job
 
 ## Security
 
